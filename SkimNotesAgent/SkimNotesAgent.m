@@ -1,38 +1,77 @@
+/*
+ *  SkimNotesAgent.m
+ *
+ *  Created by Adam Maxwell on 04/10/07.
+ *
+ This software is Copyright (c) 2007
+ Adam Maxwell. All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ 
+ - Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ 
+ - Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in
+ the documentation and/or other materials provided with the
+ distribution.
+ 
+ - Neither the name of Adam Maxwell nor the names of any
+ contributors may be used to endorse or promote products derived
+ from this software without specific prior written permission.
+ 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+
 #import <AppKit/AppKit.h>
 #import "NSFileManager_ExtendedAttributes.h"
 #import "SkimNotesAgent.h"
 
-@interface Listener : NSObject
+@interface SKAgentListener : NSObject
 {
-    NSConnection *_connection;
+    NSConnection *connection;
 }
 - (id)initWithServerName:(NSString *)serverName;
-- (void)_destroyConnection;
+- (void)destroyConnection;
 @end
 
-@implementation Listener
+@implementation SKAgentListener
 
 - (id)initWithServerName:(NSString *)serverName;
 {
     self = [super init];
     if (self) {
-        _connection = [[NSConnection alloc] initWithReceivePort:[NSPort port] sendPort:nil];
-        NSProtocolChecker *checker = [NSProtocolChecker protocolCheckerWithTarget:self protocol:@protocol(ListenerProtocol)];
-        [_connection setRootObject:checker];
-        [_connection setDelegate:self];
+        connection = [[NSConnection alloc] initWithReceivePort:[NSPort port] sendPort:nil];
+        NSProtocolChecker *checker = [NSProtocolChecker protocolCheckerWithTarget:self protocol:@protocol(SKAgentListenerProtocol)];
+        [connection setRootObject:checker];
+        [connection setDelegate:self];
         
         // user can pass nil, in which case we generate a server name to be read from standard output
         if (nil == serverName)
             serverName = [[NSProcessInfo processInfo] globallyUniqueString];
 
-        if ([_connection registerName:serverName] == NO) {
-            NSLog(@"failed to register connection; another agent process must be running");
-            [self _destroyConnection];
+        if ([connection registerName:serverName] == NO) {
+            fprintf(stderr, "SkimNotesAgent pid %d: unable to register connection name %s; another process must be running\n", getpid(), [serverName UTF8String]);
+            [self destroyConnection];
             [self release];
             self = nil;
         }
         NSFileHandle *fh = [NSFileHandle fileHandleWithStandardOutput];
         [fh writeData:[serverName dataUsingEncoding:NSUTF8StringEncoding]];
+        [fh closeFile];
     }
     return self;
 }
@@ -40,6 +79,7 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self destroyConnection];
     [super dealloc];
 }
 
@@ -48,7 +88,7 @@
     NSError *error;
     NSData *data = [[NSFileManager defaultManager] extendedAttributeNamed:@"net_sourceforge_skim-app_rtf_notes" atPath:[aFile stringByStandardizingPath] traverseLink:YES error:&error];
     if (nil == data && [error code] != ENOATTR)
-        NSLog(@"%@", error);
+        fprintf(stderr, "SkimNotesAgent pid %d: error getting RTF notes (%s)\n", getpid(), [[error description] UTF8String]);
     return data;
 }
 
@@ -58,25 +98,26 @@
     NSString *string = nil;
     NSData *data = [[NSFileManager defaultManager] extendedAttributeNamed:@"net_sourceforge_skim-app_text_notes" atPath:[aFile stringByStandardizingPath] traverseLink:YES error:&error];
     if (nil == data && [error code] != ENOATTR)
-        NSLog(@"%@", error);
+        fprintf(stderr, "SkimNotesAgent pid %d: error getting RTF notes (%s)\n", getpid(), [[error description] UTF8String]);
     else
         string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
     return string;
 }
 
-- (void)_destroyConnection;
+- (void)destroyConnection;
 {
-    [_connection registerName:nil];
-    [[_connection receivePort] invalidate];
-    [[_connection sendPort] invalidate];
-    [_connection invalidate];
-    [_connection release];
-    _connection = nil;
+    [connection registerName:nil];
+    [[connection receivePort] invalidate];
+    [[connection sendPort] invalidate];
+    [connection invalidate];
+    [connection release];
+    connection = nil;
 }
 
-- (void)portDied:(id)obj
+- (void)portDied:(NSNotification *)notification
 {
-    [self _destroyConnection];
+    [self destroyConnection];
+    fprintf(stderr, "SkimNotesAgent pid %d dying because port %s is invalid\n", getpid(), [[[notification object] description] UTF8String]);
     exit(0);
 }
 
@@ -84,13 +125,8 @@
 - (BOOL)makeNewConnection:(NSConnection *)newConnection sender:(NSConnection *)parentConnection
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(portDied:) name:NSPortDidBecomeInvalidNotification object:[newConnection sendPort]];
+    fprintf(stderr, "SkimNotesAgent pid %d connection registered\n", getpid());
     return YES;
-}
-
-
-- (void)applicationWillTerminate:(NSNotification *)aNotification;
-{
-    [self _destroyConnection];
 }
 
 @end
@@ -100,19 +136,19 @@ int main (int argc, const char * argv[]) {
     
     NSArray *args = [[NSProcessInfo processInfo] arguments];
     NSString *serverName = [args count] > 1 ? [args lastObject] : nil;
-    Listener *listener = [[Listener alloc] initWithServerName:serverName];
+    SKAgentListener *listener = [[SKAgentListener alloc] initWithServerName:serverName];
 
     NSRunLoop *rl = [NSRunLoop currentRunLoop];
     BOOL didRun;
     NSDate *distantFuture = [NSDate distantFuture];
-    NSAutoreleasePool *__pool = [NSAutoreleasePool new];
+    NSAutoreleasePool *runpool = [NSAutoreleasePool new];
     
     do {
-        [__pool release];
-        __pool = [NSAutoreleasePool new];
+        [runpool release];
+        runpool = [NSAutoreleasePool new];
         didRun = [rl runMode:NSDefaultRunLoopMode beforeDate:distantFuture];
     } while (listener && didRun);
-    [__pool release];
+    [runpool release];
     
     [listener release];
     [pool release];
