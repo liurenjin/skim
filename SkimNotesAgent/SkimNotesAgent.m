@@ -83,6 +83,15 @@
     [super dealloc];
 }
 
+- (bycopy NSData *)SkimNotesAtPath:(in bycopy NSString *)aFile;
+{
+    NSError *error;
+    NSData *data = [[NSFileManager defaultManager] extendedAttributeNamed:@"net_sourceforge_skim-app_notes" atPath:[aFile stringByStandardizingPath] traverseLink:YES error:&error];
+    if (nil == data && [error code] != ENOATTR)
+        fprintf(stderr, "SkimNotesAgent pid %d: error getting Skim notes (%s)\n", getpid(), [[error description] UTF8String]);
+    return data;
+}
+
 - (bycopy NSData *)RTFNotesAtPath:(in bycopy NSString *)aFile;
 {
     NSError *error;
