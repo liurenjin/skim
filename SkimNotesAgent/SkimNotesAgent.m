@@ -104,12 +104,9 @@
 - (bycopy NSString *)textNotesAtPath:(in bycopy NSString *)aFile;
 {
     NSError *error;
-    NSString *string = nil;
-    NSData *data = [[NSFileManager defaultManager] extendedAttributeNamed:@"net_sourceforge_skim-app_text_notes" atPath:[aFile stringByStandardizingPath] traverseLink:YES error:&error];
-    if (nil == data && [error code] != ENOATTR)
-        fprintf(stderr, "SkimNotesAgent pid %d: error getting RTF notes (%s)\n", getpid(), [[error description] UTF8String]);
-    else
-        string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+    NSString *string = [[NSFileManager defaultManager] propertyListFromExtendedAttributeNamed:@"net_sourceforge_skim-app_text_notes" atPath:[aFile stringByStandardizingPath] traverseLink:YES error:&error];
+    if (nil == string && [error code] != ENOATTR)
+        fprintf(stderr, "SkimNotesAgent pid %d: error getting text notes (%s)\n", getpid(), [[error description] UTF8String]);
     return string;
 }
 
