@@ -105,7 +105,7 @@
 {
     NSError *error;
     NSString *string = [[NSFileManager defaultManager] propertyListFromExtendedAttributeNamed:@"net_sourceforge_skim-app_text_notes" atPath:[aFile stringByStandardizingPath] traverseLink:YES error:&error];
-    if (nil == string && [error code] != ENOATTR)
+    if (nil == string && [[[error userInfo] objectForKey:NSUnderlyingErrorKey] code] != ENOATTR)
         fprintf(stderr, "SkimNotesAgent pid %d: error getting text notes (%s)\n", getpid(), [[error description] UTF8String]);
     return string;
 }
