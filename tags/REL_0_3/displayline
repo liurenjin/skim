@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# displayline (Skim)
+#
+# Usage: displayline LINE PDFFILE [TEXSOURCEFILE]
+
+# get arguments, expand tilde in paths
+line=$1
+file="${2/#~/$HOME}"
+if [ $# -gt 2 ]; then
+source="${3/#~/$HOME}"
+else
+# derive source file from pdf file
+source="${file%.pdf}.tex"
+fi
+
+# expand relative paths
+if [ "${file:0:1}" != "/" ]; then
+file="${PWD}/${file}"
+fi
+if [ "${source:0:1}" != "/" ]; then
+source="${PWD}/${source}"
+fi
+
+# call the AppleScript
+/usr/bin/osascript -e "tell application \"Skim\"" -e "activate" -e "open POSIX file \""${file}"\" at TeX line "${line}" from source POSIX file \""${source}"\"" -e "end tell"

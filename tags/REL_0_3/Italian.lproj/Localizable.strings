@@ -1,0 +1,480 @@
+/* Window title format: [filename] - Page [number] */
+"%@ %C Page %@" = "%1$@ %2$C Pagina %3$@";
+
+/* Window title format */
+"%@ (%i pages)" = "%1$@ (%2$i pagine)";
+
+/* Description for export */
+"%C %@, page %i" = "%1$C %2$@, pagina %3$i";
+
+/* Message in alert dialog */
+"\"%@\" already exists. Do you want to replace it?" = "\"%@\" esiste già. Vuoi sostituirlo?";
+
+/* Error description */
+"A component of the path is not a directory." = "Un componente del percorso non è una directory.";
+
+/* Informative text in alert dialog */
+"A file or folder with the same name already exists in %@. Replacing it will overwrite its current contents." = "Un file o directory con lo stesso nome esiste già in %@. Sostituirlo sovrascriverà il suo contenuto corrente.";
+
+/* Tool tip message
+   Toolbar item label */
+"Actual Size" = "Dimensione Effettiva";
+
+/* Toolbar item label */
+"Add Arrow" = "Aggiungi Freccia";
+
+/* Toolbar item label */
+"Add Circle" = "Aggiungi Cerchio";
+
+/* Toolbar item label */
+"Add Markup" = "Aggiungi Evidenziazione";
+
+/* Tool tip message */
+"Add New Arrow" = "Aggiungi Nuova Freccia";
+
+/* Tool tip message */
+"Add New Circle" = "Aggiungi Nuovo Cerchio";
+
+/* Tool tip message */
+"Add New Markup" = "Aggiungi Nuova Evidenziazione";
+
+/* Tool tip message */
+"Add New Note" = "Aggiungi Nuova Nota";
+
+/* Toolbar item label */
+"Add Note" = "Aggiungi Nota";
+
+/* Description for export
+   Menu item title */
+"Anchored Note" = "Nota Ancorata";
+
+/* Menu item title */
+"Anchored Note Tool" = "Strumento Nota Ancorata";
+
+/* Description for export
+   Menu item title */
+"Arrow" = "Freccia";
+
+/* Menu item title */
+"Arrow Tool" = "Strumento Freccia";
+
+/* Button title */
+"Auto" = "Auto";
+
+/* Menu item title */
+"Back" = "Indietro";
+
+/* Tool tip message
+   Toolbar item label */
+"Back/Forward" = "Indietro/Avanti";
+
+/* Description for export
+   Menu item title */
+"Box" = "Rettangolo";
+
+/* Menu item title */
+"Box Tool" = "Strumento Rettangolo";
+
+/* Error description */
+"Buffer too small for attribute names." = "Buffer troppo piccolo per nomi di attributi.";
+
+/* Button title */
+"Cancel" = "Annulla";
+
+/* Informative text in alert dialog when pressing Reset All button */
+"Choosing Reset will restore all settings in this pane to the state they were in when Skim was first installed." = "Scegliere Reset ripristinerà tutte le impostazioni in questo pannello allo stato in cui esse erano quando Skim è stato installato inizialmente.";
+
+/* Informative text in alert dialog when pressing Reset All button */
+"Choosing Reset will restore all settings to the state they were in when Skim was first installed." = "Scegliere Reset ripristinerà tutte le impostazioni allo stato in cui esse erano quando Skim è stato installato inizialmente.";
+
+/* Description for export
+   Menu item title */
+"Circle" = "Cerchio";
+
+/* Menu item title */
+"Circle Tool" = "Strumento Cerchio";
+
+/* Button title
+   Tool tip message */
+"Close" = "Chiudi";
+
+/* Toolbar item label */
+"Contents Pane" = "Pannello Contenuti";
+
+/* PS conversion progress message */
+"Converter already stopped." = "Convertitore già fermato.";
+
+/* PS conversion progress message */
+"Converting PostScript" = "Convertendo PostScript";
+
+/* Menu item title */
+"Copy" = "Copia";
+
+/* Menu item title */
+"Copy All Text" = "Copia Tutto il Testo";
+
+/* Menu item title */
+"Copy Document as PDF" = "Copia il Documento come PDF";
+
+/* Menu item title */
+"Copy Page as PDF" = "Copia Pagina come PDF";
+
+/* Menu item title */
+"Copy Selected Text" = "Copia Testo Selezionato";
+
+/* Menu item title */
+"Crop Box" = "Rettangolo Ritaglio";
+
+/* Menu item title */
+"Cut" = "Taglia";
+
+/* Tool tip message
+   Toolbar item label */
+"Display Box" = "Rettangolo Disegno";
+
+/* Default text for new text note */
+"Double-click to edit." = "Doppio-click per modificare.";
+
+/* Menu item title */
+"Edit Current Note" = "Modifica Nota Corrente";
+
+/* Menu item title */
+"Edit Note" = "Modifica Nota";
+
+/* Error description */
+"File name too long." = "Nome file troppo lungo.";
+
+/* PS conversion progress message */
+"File successfully converted!" = "File convertito con successo!";
+
+/* Error description */
+"File system does not support extended attributes or they are disabled." = "Il file system non supporta gli attributi estesi, oppure sono disabilitati.";
+
+/* Message in alert dialog */
+"File Updated" = "File Aggiornato";
+
+/* Tool tip message */
+"Fit to Screen" = "Adatta alla finestra";
+
+/* Menu item title */
+"Forward" = "Avanti";
+
+/* Message in alert dialog */
+"Found Separate Notes" = "Trovata Nota Separata";
+
+/* Tool tip message
+   Toolbar item label
+   Menu item title */
+"Full Screen" = "Schermo Intero";
+
+/* Tool tip message */
+"Get Document Info" = "Ottieni Informazioni sul Documento";
+
+/* Tool tip message */
+"Go Back" = "Vai Indietro";
+
+/* Tool tip message */
+"Go Forward" = "Vai Avanti";
+
+/* Tool tip message */
+"Go To Next Page" = "Vai Alla Pagina Successiva";
+
+/* Tool tip message */
+"Go To Page" = "Vai Alla Pagina";
+
+/* Tool tip message */
+"Go To Previous Page" = "Vai Alla Pagina Precedente";
+
+/* Menu item title */
+"Hide Contents Pane" = "Nascondi Pannello Contenuti";
+
+/* Menu item title */
+"Hide Notes Pane" = "Nascondi Pannello Note";
+
+/* Menu item title */
+"Hide Reading Bar" = "Nascondi Barra Lettura";
+
+/* Description for export
+   Menu item title */
+"Highlight" = "Evidenziazione";
+
+/* Menu item title */
+"Highlight Tool" = "Strumento Evidenziazione";
+
+/* Error description */
+"I/O error occurred." = "Si è verificato un errore di I/O.";
+
+/* Toolbar item label */
+"Info" = "Info";
+
+/* Window title */
+"Latest Release Notes" = "Ultime Note Rilascio";
+
+/* No comment provided by engineer. */
+"Look Up in Dictionary" = "Cerca nel dizionario";
+
+/* Menu item title */
+"Magnify" = "Ingrandisci";
+
+/* Tool tip message
+   Menu item title */
+"Magnify Tool" = "Strumento Ingrandimento";
+
+/* Menu item title */
+"Media Box" = "Rettangolo Media";
+
+/* Default text for new anchored note */
+"New note" = "Nuova Nota";
+
+/* Menu item title */
+"New Note or Highlight" = "Nuova Nota o Evidenziazione";
+
+/* Error description */
+"New notes need a type." = "Le nuove note necessitano un tipo.";
+
+/* Tool tip message
+   Toolbar item label */
+"Next" = "Successivo";
+
+/* Button title */
+"No" = "No";
+
+/* Error description */
+"No space left on file system." = "Nessuno spazio rimasto sul file system.";
+
+/* Tool tip message */
+"Note Tool" = "Strumento Note";
+
+/* Toolbar item label */
+"Notes Pane" = "Pannello Note";
+
+/* Error description */
+"Options contained XATTR_CREATE but the named attribute exists." = "L'opzione contiene XATTR_CREATE, ma l'attributo con nome esiste già.";
+
+/* Error description */
+"Options not recognized." = "Opzione non riconosciuta.";
+
+/* Toolbar item label
+   Menu item title */
+"Page" = "Pagina";
+
+/* Tool tip label format */
+"Page %@" = "Pagina %@";
+
+/* Menu item title */
+"Paste" = "Incolla";
+
+/* Error description */
+"Path or name points to an invalid address." = "Percorso o nome punta ad un indirizzo invalido.";
+
+/* Tool tip message
+   Toolbar item label
+   Menu item title */
+"Presentation" = "Presentazione";
+
+/* Tool tip message
+   Toolbar item label */
+"Previous" = "Precedente";
+
+/* PS conversion progress message */
+"Processing page %d" = "Processando pagina %d";
+
+/* Error description */
+"Read-only file system.  Unable to change attributes." = "File system in sola lettura. Impossibile cambiare gli attributi.";
+
+/* Window title */
+"Release Notes" = "Note Rilascio";
+
+/* Menu item title */
+"Remove Current Note" = "Rimuovi Nota Corrente";
+
+/* Menu item title */
+"Remove Full Screen" = "Rimuovi Schermo Intero";
+
+/* Menu item title */
+"Remove Note" = "Rimuovi Nota";
+
+/* Menu item title */
+"Remove Presentation" = "Rimuovi Presentazione";
+
+/* Button title */
+"Reset" = "Ripristina";
+
+/* Message in alert dialog when pressing Reset All button */
+"Reset %@ preferences to their original values?" = "Ripristina le preferenze %@ al loro valore originale?";
+
+/* Message in alert dialog when pressing Reset All button */
+"Reset all preferences to their original values?" = "Ripristina tutte le preferenze ai loro valori originali?";
+
+/* Tool tip message
+   Toolbar item label */
+"Rotate Left" = "Ruota Sinistra";
+
+/* Tool tip message
+   Toolbar item label */
+"Rotate Right" = "Ruota Destra";
+
+/* Button title */
+"Save" = "Registra";
+
+/* Menu item title */
+"Save PDF As" = "Salva PDF Come";
+
+/* Tool tip message
+   Toolbar item label
+   Menu item title */
+"Scale" = "Scala";
+
+/* Menu item title */
+"Scroll" = "Mano";
+
+/* Tool tip message
+   Menu item title */
+"Scroll Tool" = "Strumento Mano";
+
+/* Error description */
+"Search permission denied for this path." = "Permessi di ricerca negati per questo percorso.";
+
+/* Menu item title */
+"Show Contents Pane" = "Mostra Pannello Contenuti";
+
+/* Menu item title */
+"Show Notes Pane" = "Mostra Pannello Note";
+
+/* Menu item title */
+"Show Reading Bar" = "Mostra Barra Lettura";
+
+/* Informative text in alert dialog */
+"Skim was not able to read the notes at %@. %@ Do you want to continue to open the PDF document anyway?" = "Skim non è stato in grado di leggere le note a %1$@. %2$@ Vuoi continuare comunque ad aprire il documento PDF?";
+
+/* Description for export
+   Menu item title */
+"Strike Out" = "Barra";
+
+/* Menu item title */
+"Strike Out Tool" = "Strumento Barra";
+
+/* Menu item title */
+"Take Snapshot" = "Scatta Istantanea";
+
+/* Menu item title */
+"Text" = "Testo";
+
+/* Error description */
+"Text markups cannot be created in scripts." = "Evidenziazioni del testo non possono essere creati negli script.";
+
+/* Description for export
+   Menu item title */
+"Text Note" = "Nota Testo";
+
+/* Menu item title */
+"Text Note Tool" = "Strumento Nota di Testo";
+
+/* Tool tip message
+   Menu item title */
+"Text Tool" = "Strumento Testo";
+
+/* Error description */
+"The data size of the extended attribute is too large." = "La dimensione dei dati degli attributi estesi è troppo grande.";
+
+/* Informative text in alert dialog */
+"The document has unsaved changes, or has not previously been saved to disk." = "Il documento ha cambiamenti non salvati, oppure non è stato precedentemente salvato sul disco.";
+
+/* Error description */
+"The file does not exist or is not a file." = "Il file non esiste o non è un file.";
+
+/* Error description */
+"The named attribute does not exist." = "L'attributo con nome non esiste.";
+
+/* Informative text in alert dialog */
+"The PDF file has changed on disk. Do you want to reload this document now? Choosing Auto will reload this file automatically for future changes." = "Il file PDF è cambiato su disco. Vuoi ricaricare il documento ora? Scegliere Auto ricaricherà il file automaticamente in caso di cambiamenti futuri.";
+
+/* Informative text in alert dialog */
+"The PDF file has changed on disk. If you reload, your changes will be lost. Do you want to reload this document now?" = "Il file PDF è stato cambiato su disco. Se lo ricaricherai, i cambiamenti saranno persi. Vuoi ricaricare questo documento ora?";
+
+/* Error description */
+"This file system object does not support extended attributes." = "Questo oggetto del file system non supporta attributi estesi.";
+
+/* Tool tip message */
+"Toggle Contents Pane" = "Mostra/Nascondi Pannello contenuti";
+
+/* Tool tip message */
+"Toggle Notes Pane" = "Mostra/Nascondi Pannello Note";
+
+/* Error description */
+"Too many symlinks encountered resolving path." = "Incontrati troppi link simbolici quando si stava elaborando il percorso.";
+
+/* Tool tip message
+   Toolbar item label */
+"Tool Mode" = "Tipo Strumento";
+
+/* Menu item title */
+"Tools" = "Strumenti";
+
+/* Error description */
+"Unable to load file" = "Impossibile caricare il file";
+
+/* Message in alert dialog */
+"Unable to Read Notes" = "Impossibile Leggere Note";
+
+/* Informative text in alert dialog */
+"Unable to read notes for %@, but a Skim notes file with the same name was found.  Do you want Skim to read the notes from this file?" = "Impossibile leggere le note per %@, ma un file di note di Skim con lo stesso nome è stato trovato. Vuoi che Skim legga le note da questo file?";
+
+/* Error description */
+"Unable to write notes" = "Impossibile scrivere le note";
+
+/* Error description */
+"Unable to write notes as RTF" = "Impossibile salvare le note come RTF";
+
+/* Description for export
+   Menu item title */
+"Underline" = "Sottolinea";
+
+/* Menu item title */
+"Underline Tool" = "Strumento Sottolineatura";
+
+/* Error description */
+"Unknown error occurred." = "Errore sconosciuto.";
+
+/* Default file name for saved PDF */
+"Untitled.pdf" = "Senza Nome.pdf";
+
+/* Menu item title */
+"Use Current View Settings as Default" = "Usa visualizzazione corrente come default";
+
+/* Menu item title */
+"Use Current View Settings as Default for Full Screen" = "Usa visualizzazione corrente come default per il modo schermo intero";
+
+/* Tool tip message */
+"View Notes" = "Vedi Note";
+
+/* Tool tip message */
+"View Snapshots" = "Vedi Istantanee";
+
+/* Tool tip message */
+"View Table of Contents" = "Vedi Tabella dei Contenuti";
+
+/* Tool tip message */
+"View Thumbnails" = "Vedi Miniature";
+
+/* Button title */
+"Yes" = "Sì";
+
+/* Alert text when trying to create archive for unsaved document */
+"You must save this file first" = "Devi salvare questo file per prima cosa";
+
+/* Tool tip message
+   Toolbar item label */
+"Zoom In" = "Ingrandisci";
+
+/* Tool tip message
+   Toolbar item label */
+"Zoom Out" = "Riduci";
+
+/* Tool tip message */
+"Zoom To Actual Size" = "Dimensioni effettive";
+
+/* Tool tip message
+   Toolbar item label */
+"Zoom To Fit" = "Adatta alla finestra";
+
