@@ -1,0 +1,92 @@
+/* No comment provided by engineer. */
+"%.0lfk of %.0lfk" = "%1$.0lfk van %2$.0lfk";
+
+/* No comment provided by engineer. */
+"%@ %@ has been installed and will be ready to use next time %@ starts! Would you like to relaunch now?" = "%1$@ %2$@ is ge•nstalleerd en is klaar voor gebruik de volgende keer dat %3$@ opstart! Wilt u nu herstarten?";
+
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available." = "%1$@ %2$@ is op het moment de nieuwst beschikbare versie.";
+
+/* No comment provided by engineer. */
+"%@ %@ is now available (you have %@). Would you like to download it now?" = "%1$@ %2$@ is nu beschikbaar voor download (u heeft %3$@). Wilt u deze nu downloaden?";
+
+/* No comment provided by engineer. */
+"%@ does not have permission to write to the application's directory! Are you running off a disk image? If not, ask your system administrator for help." = "%@ heeft geen toestemming om naar de directory voor de applicatie te schrijven! Werkt u vanaf een schijfkopiebestand? Indien niet, vraag uw systeemadministrator om hulp.";
+
+/* No comment provided by engineer. */
+"A new version of %@ has been installed!" = "Er is een nieuwe versie van %@ is ge•nstalleerd!";
+
+/* No comment provided by engineer. */
+"A new version of %@ is available!" = "Er is een nieuwe versie van %@ beschikbaar!";
+
+/* No comment provided by engineer. */
+"An error occurred during installation. Please try again later." = "Er is een fout opgetreden tijdens de installatie. Probeert u het later nog eens.";
+
+/* No comment provided by engineer. */
+"An error occurred in retrieving update information. Please try again later." = "Er is een fout opgetreden bij het vinden update informatie. Probeert u het later nog eens.";
+
+/* No comment provided by engineer. */
+"An error occurred in retrieving update information; are you connected to the internet? Please try again later." = "Er is een fout opgetreden bij het vinden update informatie; bent u aangesloten op het internet? Probeert u het later nog eens.";
+
+/* No comment provided by engineer. */
+"An error occurred while extracting the archive. Please try again later." = "Er is een fout opgetreden tijdens het uitpakken van het archief. Probeert u het later nog eens.";
+
+/* No comment provided by engineer. */
+"An error occurred while trying to download the file. Please try again later." = "Er is een fout opgetreden tijdens het downloaden van het bestand. Probeert u het later nog eens.";
+
+/* No comment provided by engineer. */
+"Cancel" = "Annuleer";
+
+/* No comment provided by engineer. */
+"Check for updates on startup?" = "Check voor een nieuwe versie bij het opstarten?";
+
+/* No comment provided by engineer. */
+"An update is already in progress!" = "Er is reeds een update bezig!";
+
+/* No comment provided by engineer. */
+"Diagnose" = "Diagnose";
+
+/* No comment provided by engineer. */
+"Downloading update" = "Bezig update te downloaden";
+
+/* No comment provided by engineer. */
+"Extracting update" = "Bezig update uit te pakken";
+
+/* No comment provided by engineer. */
+"Install and Relaunch" = "Installeer en Herstart";
+
+/* No comment provided by engineer. */
+"Installing update" = "Bezig update te installeren";
+
+/* No comment provided by engineer. */
+"No" = "Nee";
+
+/* No comment provided by engineer. */
+"OK" = "OK";
+
+/* No comment provided by engineer. */
+"Open Console" = "Toon Console";
+
+/* No comment provided by engineer. */
+"Ready to install!" = "Klaar om te installeren!";
+
+/* No comment provided by engineer. */
+"Unknown network error" = "Onbekende netwerkfout";
+
+/* No comment provided by engineer. */
+"Update Error!" = "Update fout!";
+
+/* No comment provided by engineer. */
+"Updating %@" = "%@ Updaten";
+
+/* No comment provided by engineer. */
+"Would you like %@ to check for updates on startup? If not, you can initiate the check manually from the application menu." = "Wilt u dat %@ tijdens het opstarten voor nieuwe versies controleert? Indien niet, kunt u dit handmatig controleren vanaf het programmmamenu.";
+
+/* No comment provided by engineer. */
+"Would you like to ignore this problem or attempt to diagnose it?  You may also open the Console log to check for errors." = "Wilt u dit probleem negeren, of proberen een diagnose te stellen?  U kunt ook de log in de Console bekijken of er fouten zijn gemeld.";
+
+/* No comment provided by engineer. */
+"Yes" = "Ja";
+
+/* No comment provided by engineer. */
+"You're up to date!" = "U bent actueel!";

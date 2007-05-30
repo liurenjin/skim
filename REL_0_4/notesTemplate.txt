@@ -1,0 +1,12 @@
+<$notes>
+* <$type.typeName/>, page <$pageIndex.numberByAddingOne/>
+
+<$contents?>
+<$contents/>
+
+</$contents?>
+<$text?>
+<$text/>
+
+</$text?>
+</$notes>
