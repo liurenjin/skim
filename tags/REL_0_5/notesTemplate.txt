@@ -1,0 +1,12 @@
+<$notes.@arraySortedByBounds.@arraySortedByPageIndex>
+* <$type.typeName/>, page <$pageIndex.numberByAddingOne/>
+
+<$contents?>
+<$contents/>
+
+</$contents?>
+<$text?>
+<$text/>
+
+</$text?>
+</$notes.@arraySortedByBounds.@arraySortedByPageIndex>
