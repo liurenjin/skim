@@ -90,7 +90,7 @@
     NSString *extension = [[aFile pathExtension] lastPathComponent];
     
     if ([extension caseInsensitiveCompare:@"pdfd"] == NSOrderedSame) {
-        data = [NSData dataWithContentsOfFile:[aFile stringByAppendingPathComponent:@"data.skim"] options:0 error:&error];
+        data = [NSData dataWithContentsOfFile:[aFile stringByAppendingPathComponent:@"notes.skim"] options:0 error:&error];
         if (nil == data)
             fprintf(stderr, "SkimNotesAgent pid %d: error getting Skim notes\n", getpid(), [[error description] UTF8String]);
     } else if ([extension caseInsensitiveCompare:@"skim"] == NSOrderedSame) {
@@ -112,7 +112,7 @@
     NSString *extension = [[aFile pathExtension] lastPathComponent];
     
     if ([extension caseInsensitiveCompare:@"pdfd"] == NSOrderedSame) {
-        data = [NSData dataWithContentsOfFile:[aFile stringByAppendingPathComponent:@"data.rtf"] options:0 error:&error];
+        data = [NSData dataWithContentsOfFile:[aFile stringByAppendingPathComponent:@"notes.rtf"] options:0 error:&error];
         if (nil == data)
             fprintf(stderr, "SkimNotesAgent pid %d: error getting Skim notes\n", getpid(), [[error description] UTF8String]);
     } else {
@@ -130,7 +130,7 @@
     NSString *extension = [[aFile pathExtension] lastPathComponent];
     
     if ([extension caseInsensitiveCompare:@"pdfd"] == NSOrderedSame) {
-        string = [NSString stringWithContentsOfFile:[aFile stringByAppendingPathComponent:@"data.txt"] encoding:NSUTF8StringEncoding error:&error];
+        string = [NSString stringWithContentsOfFile:[aFile stringByAppendingPathComponent:@"notes.txt"] encoding:NSUTF8StringEncoding error:&error];
         if (nil == string)
             fprintf(stderr, "SkimNotesAgent pid %d: error getting Skim notes\n", getpid(), [[error description] UTF8String]);
     } else {
