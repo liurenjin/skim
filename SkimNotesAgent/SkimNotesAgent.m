@@ -86,27 +86,58 @@
 - (bycopy NSData *)SkimNotesAtPath:(in bycopy NSString *)aFile;
 {
     NSError *error;
-    NSData *data = [[NSFileManager defaultManager] extendedAttributeNamed:@"net_sourceforge_skim-app_notes" atPath:[aFile stringByStandardizingPath] traverseLink:YES error:&error];
-    if (nil == data && [error code] != ENOATTR)
-        fprintf(stderr, "SkimNotesAgent pid %d: error getting Skim notes (%s)\n", getpid(), [[error description] UTF8String]);
+    NSData *data = nil;
+    NSString *extension = [[aFile pathExtension] lastPathComponent];
+    
+    if ([extension caseInsensitiveCompare:@"pdfd"] == NSOrderedSame) {
+        data = [NSData dataWithContentsOfFile:[aFile stringByAppendingPathComponent:@"data.skim"] options:0 error:&error];
+        if (nil == data)
+            fprintf(stderr, "SkimNotesAgent pid %d: error getting Skim notes\n", getpid(), [[error description] UTF8String]);
+    } else if ([extension caseInsensitiveCompare:@"skim"] == NSOrderedSame) {
+        data = [NSData dataWithContentsOfFile:aFile options:0 error:&error];
+        if (nil == data)
+            fprintf(stderr, "SkimNotesAgent pid %d: error getting Skim notes\n", getpid(), [[error description] UTF8String]);
+    } else {
+        data = [[NSFileManager defaultManager] extendedAttributeNamed:@"net_sourceforge_skim-app_notes" atPath:[aFile stringByStandardizingPath] traverseLink:YES error:&error];
+        if (nil == data && [error code] != ENOATTR)
+            fprintf(stderr, "SkimNotesAgent pid %d: error getting Skim notes (%s)\n", getpid(), [[error description] UTF8String]);
+    }
     return data;
 }
 
 - (bycopy NSData *)RTFNotesAtPath:(in bycopy NSString *)aFile;
 {
     NSError *error;
-    NSData *data = [[NSFileManager defaultManager] extendedAttributeNamed:@"net_sourceforge_skim-app_rtf_notes" atPath:[aFile stringByStandardizingPath] traverseLink:YES error:&error];
-    if (nil == data && [error code] != ENOATTR)
-        fprintf(stderr, "SkimNotesAgent pid %d: error getting RTF notes (%s)\n", getpid(), [[error description] UTF8String]);
+    NSData *data = nil;
+    NSString *extension = [[aFile pathExtension] lastPathComponent];
+    
+    if ([extension caseInsensitiveCompare:@"pdfd"] == NSOrderedSame) {
+        data = [NSData dataWithContentsOfFile:[aFile stringByAppendingPathComponent:@"data.rtf"] options:0 error:&error];
+        if (nil == data)
+            fprintf(stderr, "SkimNotesAgent pid %d: error getting Skim notes\n", getpid(), [[error description] UTF8String]);
+    } else {
+        data = [[NSFileManager defaultManager] extendedAttributeNamed:@"net_sourceforge_skim-app_rtf_notes" atPath:[aFile stringByStandardizingPath] traverseLink:YES error:&error];
+        if (nil == data && [error code] != ENOATTR)
+            fprintf(stderr, "SkimNotesAgent pid %d: error getting RTF notes (%s)\n", getpid(), [[error description] UTF8String]);
+    }
     return data;
 }
 
 - (bycopy NSString *)textNotesAtPath:(in bycopy NSString *)aFile;
 {
     NSError *error;
-    NSString *string = [[NSFileManager defaultManager] propertyListFromExtendedAttributeNamed:@"net_sourceforge_skim-app_text_notes" atPath:[aFile stringByStandardizingPath] traverseLink:YES error:&error];
-    if (nil == string && [[[error userInfo] objectForKey:NSUnderlyingErrorKey] code] != ENOATTR)
-        fprintf(stderr, "SkimNotesAgent pid %d: error getting text notes (%s)\n", getpid(), [[error description] UTF8String]);
+    NSString *string = nil;
+    NSString *extension = [[aFile pathExtension] lastPathComponent];
+    
+    if ([extension caseInsensitiveCompare:@"pdfd"] == NSOrderedSame) {
+        string = [NSString stringWithContentsOfFile:[aFile stringByAppendingPathComponent:@"data.txt"] encoding:NSUTF8StringEncoding error:&error];
+        if (nil == string)
+            fprintf(stderr, "SkimNotesAgent pid %d: error getting Skim notes\n", getpid(), [[error description] UTF8String]);
+    } else {
+        string = [[NSFileManager defaultManager] propertyListFromExtendedAttributeNamed:@"net_sourceforge_skim-app_text_notes" atPath:[aFile stringByStandardizingPath] traverseLink:YES error:&error];
+        if (nil == string && [[[error userInfo] objectForKey:NSUnderlyingErrorKey] code] != ENOATTR)
+            fprintf(stderr, "SkimNotesAgent pid %d: error getting text notes (%s)\n", getpid(), [[error description] UTF8String]);
+    }
     return string;
 }
 
