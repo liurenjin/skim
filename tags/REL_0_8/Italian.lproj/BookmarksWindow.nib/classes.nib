@@ -1,0 +1,21 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = SKBookmark; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = SKBookmarkController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {statusBar = SKStatusBar; tableView = SKTableView; }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {
+            ACTIONS = {startAnimation = id; stopAnimation = id; }; 
+            CLASS = SKStatusBar; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {leftCell = id; rightCell = id; }; 
+            SUPERCLASS = NSControl; 
+        }, 
+        {CLASS = SKTableView; LANGUAGE = ObjC; SUPERCLASS = NSTableView; }
+    ); 
+    IBVersion = 1; 
+}
