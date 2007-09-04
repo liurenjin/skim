@@ -83,6 +83,34 @@
     [super dealloc];
 }
 
+- (NSString *)notesFileWithExtension:(NSString *)extension atPath:(NSString *)path error:(NSError **)error {
+    NSString *filePath = nil;
+    
+    if ([extension caseInsensitiveCompare:@"skim"] == NSOrderedSame) {
+        NSArray *files = [[NSFileManager defaultManager] subpathsAtPath:path];
+        NSString *filename = @"notes.skim";
+        if ([files containsObject:filename] == NO) {
+            filename = [[[path lastPathComponent] stringByDeletingPathExtension] stringByAppendingPathExtension:extension];
+            if ([files containsObject:filename] == NO) {
+                unsigned index = [[files valueForKeyPath:@"pathExtension.lowercaseString"] indexOfObject:@"skim"];
+                filename = index == NSNotFound ? nil : [files objectAtIndex:index];
+            }
+        }
+        if (filename)
+            filePath = [path stringByAppendingPathComponent:filename];
+    } else {
+        NSString *skimFile = [self notesFileWithExtension:@"skim" atPath:path error:error];
+        if (skimFile) {
+            filePath = [[skimFile stringByDeletingPathExtension] stringByAppendingPathExtension:extension];
+            if ([[NSFileManager defaultManager] fileExistsAtPath:filePath] == NO)
+                filePath = nil;
+        }
+    }
+    if (filePath == nil && error) 
+        *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:ENOENT userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Notes file note found", NSLocalizedDescriptionKey, nil]];
+    return filePath;
+}
+
 - (bycopy NSData *)SkimNotesAtPath:(in bycopy NSString *)aFile;
 {
     NSError *error;
@@ -90,7 +118,9 @@
     NSString *extension = [[aFile pathExtension] lastPathComponent];
     
     if ([extension caseInsensitiveCompare:@"pdfd"] == NSOrderedSame) {
-        data = [NSData dataWithContentsOfFile:[aFile stringByAppendingPathComponent:@"notes.skim"] options:0 error:&error];
+        NSString *notePath = [self notesFileWithExtension:@"skim" atPath:aFile error:&error];
+        if (notePath)
+            data = [NSData dataWithContentsOfFile:notePath options:0 error:&error];
         if (nil == data)
             fprintf(stderr, "SkimNotesAgent pid %d: error getting Skim notes (%s)\n", getpid(), [[error description] UTF8String]);
     } else if ([extension caseInsensitiveCompare:@"skim"] == NSOrderedSame) {
@@ -112,7 +142,9 @@
     NSString *extension = [[aFile pathExtension] lastPathComponent];
     
     if ([extension caseInsensitiveCompare:@"pdfd"] == NSOrderedSame) {
-        data = [NSData dataWithContentsOfFile:[aFile stringByAppendingPathComponent:@"notes.rtf"] options:0 error:&error];
+        NSString *notePath = [self notesFileWithExtension:@"rtf" atPath:aFile error:&error];
+        if (notePath)
+            data = [NSData dataWithContentsOfFile:notePath options:0 error:&error];
         if (nil == data)
             fprintf(stderr, "SkimNotesAgent pid %d: error getting RTF notes (%s)\n", getpid(), [[error description] UTF8String]);
     } else {
@@ -130,7 +162,9 @@
     NSString *extension = [[aFile pathExtension] lastPathComponent];
     
     if ([extension caseInsensitiveCompare:@"pdfd"] == NSOrderedSame) {
-        string = [NSString stringWithContentsOfFile:[aFile stringByAppendingPathComponent:@"notes.txt"] encoding:NSUTF8StringEncoding error:&error];
+        NSString *notePath = [self notesFileWithExtension:@"txt" atPath:aFile error:&error];
+        if (notePath)
+            string = [NSString stringWithContentsOfFile:notePath encoding:NSUTF8StringEncoding error:&error];
         if (nil == string)
             fprintf(stderr, "SkimNotesAgent pid %d: error getting text notes (%s)\n", getpid(), [[error description] UTF8String]);
     } else {
