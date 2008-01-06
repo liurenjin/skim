@@ -136,7 +136,6 @@
 			mainGroup = 08FB7794FE84155DC02AAC07 /* SkimNotesAgent */;
 			projectDirPath = "";
 			projectRoot = "";
-			shouldCheckCompatibility = 1;
 			targets = (
 				8DD76F960486AA7600D96B5E /* SkimNotesAgent */,
 			);
