@@ -155,7 +155,7 @@
     return data;
 }
 
-- (bycopy NSString *)textNotesAtPath:(in bycopy NSString *)aFile;
+- (bycopy NSData *)textNotesAtPath:(in bycopy NSString *)aFile encoding:(NSStringEncoding)encoding;
 {
     NSError *error;
     NSString *string = nil;
@@ -172,7 +172,8 @@
         if (nil == string && [[[error userInfo] objectForKey:NSUnderlyingErrorKey] code] != ENOATTR)
             fprintf(stderr, "SkimNotesAgent pid %d: error getting text notes (%s)\n", getpid(), [[error description] UTF8String]);
     }
-    return string;
+    // Returning the string directly can fail under some conditions.  For some strings with corrupt copy-paste characters (typical for notes), -[NSString canBeConvertedToEncoding:NSUTF8StringEncoding] returns YES but the actual conversion fails.  A result seems to be that encoding the string also fails, which causes the DO client to get a timeout.  Returning NSUnicodeStringEncoding data seems to work in those cases (and is safe since we're not going over the wire between big/little-endian systems).
+    return [string dataUsingEncoding:encoding];
 }
 
 - (void)destroyConnection;

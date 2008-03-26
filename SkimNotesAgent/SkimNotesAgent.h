@@ -39,6 +39,6 @@
 
 - (bycopy NSData *)SkimNotesAtPath:(in bycopy NSString *)aFile;
 - (bycopy NSData *)RTFNotesAtPath:(in bycopy NSString *)aFile;
-- (bycopy NSString *)textNotesAtPath:(in bycopy NSString *)aFile;
+- (bycopy NSData *)textNotesAtPath:(in bycopy NSString *)aFile encoding:(NSStringEncoding)encoding;
 
 @end
