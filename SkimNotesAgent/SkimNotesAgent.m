@@ -37,7 +37,7 @@
 
 
 #import <AppKit/AppKit.h>
-#import "NSFileManager_ExtendedAttributes.h"
+#import "NSFileManager_SKExtendedAttributes.h"
 #import "SkimNotesAgent.h"
 
 @interface SKAgentListener : NSObject

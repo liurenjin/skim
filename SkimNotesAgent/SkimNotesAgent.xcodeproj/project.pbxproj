@@ -10,8 +10,8 @@
 		8DD76F9A0486AA7600D96B5E /* SkimNotesAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* SkimNotesAgent.m */; settings = {ATTRIBUTES = (); }; };
 		8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		8DD76F9F0486AA7600D96B5E /* SkimNotesAgent.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859EA3029092ED04C91782 /* SkimNotesAgent.1 */; };
-		F92BA40B0BCAF831008D5BC3 /* NSFileManager_ExtendedAttributes.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = F92BA4090BCAF831008D5BC3 /* NSFileManager_ExtendedAttributes.h */; };
-		F92BA40C0BCAF831008D5BC3 /* NSFileManager_ExtendedAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = F92BA40A0BCAF831008D5BC3 /* NSFileManager_ExtendedAttributes.m */; };
+		F92BA40B0BCAF831008D5BC3 /* NSFileManager_SKExtendedAttributes.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = F92BA4090BCAF831008D5BC3 /* NSFileManager_SKExtendedAttributes.h */; };
+		F92BA40C0BCAF831008D5BC3 /* NSFileManager_SKExtendedAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = F92BA40A0BCAF831008D5BC3 /* NSFileManager_SKExtendedAttributes.m */; };
 		F92BA4C90BCAF96A008D5BC3 /* libbz2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F92BA4C80BCAF96A008D5BC3 /* libbz2.dylib */; };
 		F92BAD7A0BCC0E02008D5BC3 /* SkimNotesAgent.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = F92BAD790BCC0E02008D5BC3 /* SkimNotesAgent.h */; };
 /* End PBXBuildFile section */
@@ -24,7 +24,7 @@
 			dstSubfolderSpec = 0;
 			files = (
 				8DD76F9F0486AA7600D96B5E /* SkimNotesAgent.1 in CopyFiles */,
-				F92BA40B0BCAF831008D5BC3 /* NSFileManager_ExtendedAttributes.h in CopyFiles */,
+				F92BA40B0BCAF831008D5BC3 /* NSFileManager_SKExtendedAttributes.h in CopyFiles */,
 				F92BAD7A0BCC0E02008D5BC3 /* SkimNotesAgent.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
@@ -37,8 +37,8 @@
 		32A70AAB03705E1F00C91783 /* SkimNotesAgent_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkimNotesAgent_Prefix.pch; sourceTree = "<group>"; };
 		8DD76FA10486AA7600D96B5E /* SkimNotesAgent */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SkimNotesAgent; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859EA3029092ED04C91782 /* SkimNotesAgent.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = SkimNotesAgent.1; sourceTree = "<group>"; };
-		F92BA4090BCAF831008D5BC3 /* NSFileManager_ExtendedAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSFileManager_ExtendedAttributes.h; sourceTree = "<group>"; };
-		F92BA40A0BCAF831008D5BC3 /* NSFileManager_ExtendedAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSFileManager_ExtendedAttributes.m; sourceTree = "<group>"; };
+		F92BA4090BCAF831008D5BC3 /* NSFileManager_SKExtendedAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSFileManager_SKExtendedAttributes.h; sourceTree = "<group>"; };
+		F92BA40A0BCAF831008D5BC3 /* NSFileManager_SKExtendedAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSFileManager_SKExtendedAttributes.m; sourceTree = "<group>"; };
 		F92BA4C80BCAF96A008D5BC3 /* libbz2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.dylib; path = /usr/lib/libbz2.dylib; sourceTree = "<absolute>"; };
 		F92BAD790BCC0E02008D5BC3 /* SkimNotesAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkimNotesAgent.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,8 +71,8 @@
 			isa = PBXGroup;
 			children = (
 				F92BAD790BCC0E02008D5BC3 /* SkimNotesAgent.h */,
-				F92BA4090BCAF831008D5BC3 /* NSFileManager_ExtendedAttributes.h */,
-				F92BA40A0BCAF831008D5BC3 /* NSFileManager_ExtendedAttributes.m */,
+				F92BA4090BCAF831008D5BC3 /* NSFileManager_SKExtendedAttributes.h */,
+				F92BA40A0BCAF831008D5BC3 /* NSFileManager_SKExtendedAttributes.m */,
 				32A70AAB03705E1F00C91783 /* SkimNotesAgent_Prefix.pch */,
 				08FB7796FE84155DC02AAC07 /* SkimNotesAgent.m */,
 			);
@@ -148,7 +148,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DD76F9A0486AA7600D96B5E /* SkimNotesAgent.m in Sources */,
-				F92BA40C0BCAF831008D5BC3 /* NSFileManager_ExtendedAttributes.m in Sources */,
+				F92BA40C0BCAF831008D5BC3 /* NSFileManager_SKExtendedAttributes.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
