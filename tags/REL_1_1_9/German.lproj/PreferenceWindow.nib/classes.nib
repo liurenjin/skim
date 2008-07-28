@@ -1,0 +1,110 @@
+{
+    IBClasses =     (
+                {
+            ACTIONS =             {
+                "" = id;
+            };
+            CLASS = FirstResponder;
+            LANGUAGE = ObjC;
+            SUPERCLASS = NSObject;
+        },
+                {
+            CLASS = NSCell;
+            LANGUAGE = ObjC;
+            SUPERCLASS = NSObject;
+        },
+                {
+            CLASS = NSMenu;
+            LANGUAGE = ObjC;
+            SUPERCLASS = NSObject;
+        },
+                {
+            CLASS = NSMenuItem;
+            LANGUAGE = ObjC;
+            SUPERCLASS = NSObject;
+        },
+                {
+            ACTIONS =             {
+                changeDashPattern = id;
+                changeEndLineStyle = id;
+                changeLineStyle = id;
+                changeLineWidth = id;
+                changeStartLineStyle = id;
+            };
+            CLASS = NSObject;
+            LANGUAGE = ObjC;
+        },
+                {
+            CLASS = NSResponder;
+            LANGUAGE = ObjC;
+            SUPERCLASS = NSObject;
+        },
+                {
+            CLASS = NSUserDefaultsController;
+            LANGUAGE = ObjC;
+            SUPERCLASS = NSController;
+        },
+                {
+            CLASS = NSView;
+            LANGUAGE = ObjC;
+            SUPERCLASS = NSResponder;
+        },
+                {
+            CLASS = NSWindow;
+            LANGUAGE = ObjC;
+            SUPERCLASS = NSResponder;
+        },
+                {
+            CLASS = NSWindowController;
+            LANGUAGE = ObjC;
+            SUPERCLASS = NSResponder;
+        },
+                {
+            CLASS = SKFontWell;
+            LANGUAGE = ObjC;
+            OUTLETS =             {
+                target = id;
+            };
+            SUPERCLASS = NSButton;
+        },
+                {
+            CLASS = SKLineWell;
+            LANGUAGE = ObjC;
+            OUTLETS =             {
+                target = id;
+                titleUIElement = id;
+            };
+            SUPERCLASS = NSControl;
+        },
+                {
+            ACTIONS =             {
+                changeDiscreteThumbnailSizes = id;
+                changeFont = id;
+                changeTeXEditorPreset = id;
+                changeUpdateInterval = id;
+                resetAll = id;
+                resetCurrent = id;
+                revertFullScreenPDFViewSettings = id;
+                revertPDFViewSettings = id;
+            };
+            CLASS = SKPreferenceController;
+            LANGUAGE = ObjC;
+            OUTLETS =             {
+                anchoredNoteFontWell = SKFontWell;
+                boxLineWell = SKLineWell;
+                circleLineWell = SKLineWell;
+                lineLineWell = SKLineWell;
+                revertFullScreenPDFSettingsButton = NSButton;
+                revertPDFSettingsButton = NSButton;
+                snapshotSizeSlider = NSSlider;
+                tabView = NSTabView;
+                texEditorPopUpButton = NSPopUpButton;
+                textLineWell = SKLineWell;
+                textNoteFontWell = SKFontWell;
+                thumbnailSizeSlider = NSSlider;
+            };
+            SUPERCLASS = NSWindowController;
+        }
+    );
+    IBVersion = 1;
+}
