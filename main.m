@@ -1,53 +1,44 @@
 //
 //  main.m
-
-
-//  This code is licensed under a BSD license. Please see the file LICENSE for details.
+//  SkimNotes
 //
-//  Created by Michael McCracken on 12/5/06.
-//  Copyright Michael O. McCracken 2006 . All rights reserved.
-//
+//  Created by Christiaan Hofman on 7/16/08.
+/*
+ This software is Copyright (c) 2008
+ Christiaan Hofman. All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+
+ - Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+
+ - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the
+    distribution.
+
+ - Neither the name of Christiaan Hofman nor the names of any
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #import <Cocoa/Cocoa.h>
-#import <Carbon/Carbon.h>
 
 int main(int argc, char *argv[])
 {
-    // Runtime check for system version
-    // - uses Carbon dialog since we don't have NSApp yet
-    // - uses Gestalt so we can check for a specific minor version (if it gets this far, anyway)
-    // - Gestalt header says to read a plist, but mailing lists (and Ali Ozer) say to avoid that
-    long version;
-    OSStatus err = Gestalt(gestaltSystemVersion, &version);
-    
-    if (noErr != err || version < 0x00001040) {
-        DialogRef alert;
-        
-        // pool required for localized strings
-        NSAutoreleasePool *pool = [NSAutoreleasePool new];
-        
-        AlertStdCFStringAlertParamRec alertParamRec = {
-            kStdCFStringAlertVersionOne,
-            TRUE,
-            FALSE,
-            (CFStringRef)NSLocalizedString(@"Quit", @""),
-            NULL, // cancel button text
-            NULL, // other button text
-            kAlertStdAlertOKButton,
-            kAlertStdAlertCancelButton,
-            kWindowDefaultPosition,
-            0
-        };
-        
-        err = CreateStandardAlert(kAlertStopAlert, (CFStringRef)NSLocalizedString(@"Unsupported System Version", @""), (CFStringRef)NSLocalizedString(@"This version of Skim requires Mac OS X 10.4 or greater to run.", @""), &alertParamRec, &alert);
-        DialogItemIndex idx;
-        
-        if (noErr == err) {
-            // this will dispose of the alert (not that a leak is a big deal at this point)
-            err = RunStandardAlert(alert, NULL, &idx);
-        }
-        [pool release];
-        return err;
-    }
     return NSApplicationMain(argc, (const char **) argv);
 }
