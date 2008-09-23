@@ -1,0 +1,60 @@
+﻿
+/* Error description */
+"A component of the path is not a directory." = "Eén padcomponent is geen directory.";
+
+/* Error description */
+"Buffer too small for attribute names." = "De buffer is te klein voor de attribuutnamen.";
+
+/* Error description */
+"Failed to reassemble attribute value." = "Het attribuut kon niet worden samengesteld.";
+
+/* Error description */
+"File name too long." = "De bestandsnaam is te lang.";
+
+/* Error description */
+"File system does not support extended attributes or they are disabled." = "Het bestandssysteem ondersteund geen uitgebreide attributen of ze zijn belemmerd.";
+
+/* Error description */
+"I/O error occurred." = "Er is een I/O fout opgetreden.";
+
+/* Error description */
+"No space left on file system." = "Er is geen plaats meer op het bestandssysteem.";
+
+/* Error description */
+"Notes file not found." = "Het notitiebestand kon niet worden gevonden.";
+
+/* Error description */
+"Options contained XATTR_CREATE but the named attribute exists." = "De opties bevatten XATTR_CREATE maar de een attribuut met de gegeven naam bestaat reeds.";
+
+/* Error description */
+"Options not recognized." = "Sommige opties werden niet herkend.";
+
+/* Error description */
+"Path or name points to an invalid address." = "Het pad of de naam wijst naar en niet-bestaand adres.";
+
+/* Error description */
+"Read-only file system.  Unable to change attributes." = "Het bestandssysteem is alleen leesbaar.  De attributen konden niet worden veranderd.";
+
+/* Error description */
+"Search permission denied for this path." = "Het is not toegestaan te zoeken op dit pad.";
+
+/* Error description */
+"The data size of the extended attribute is too large." = "De datagrootte van het uitgebreide attribuut is te groot.";
+
+/* Error description */
+"The file does not exist or is not a file." = "Het bestand bestaat niet of is geen bestand.";
+
+/* Error description */
+"The file does not exist or is not a package." = "Het bestand bestaat niet of is geen bundel.";
+
+/* Error description */
+"The named attribute does not exist." = "Er bestaat geen attribuut met de gekozen naam.";
+
+/* Error description */
+"This file system object does not support extended attributes." = "Dit bestandssyteem staat geen uitgebreide attributen toe.";
+
+/* Error description */
+"Too many symlinks encountered resolving path." = "Er zijn te veel symlinks aangetroffen tijdens het uitwerken van een pad.";
+
+/* Error description */
+"Unknown error occurred." = "Er heeft een onbekende fout plaatsgevonden.";
