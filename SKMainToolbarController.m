@@ -173,6 +173,8 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
     return @"MainToolbar";
 }
 
+- (SKPDFView *)pdfView { return mainController.pdfView; }
+
 - (void)setupToolbar {
     // make sure the nib is loaded
     [self view];

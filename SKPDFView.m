@@ -437,7 +437,6 @@ enum {
 
 - (void)setNeedsDisplayForAnnotation:(PDFAnnotation *)annotation {
     [self setNeedsDisplayInRect:[annotation displayRectForBounds:[annotation bounds]] ofPage:[annotation page]];
-    [self annotationsChangedOnPage:[annotation page]];
 }
 
 #pragma mark Accessors

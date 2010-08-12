@@ -1424,7 +1424,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
     
     NSColor *backgroundColor = [[NSUserDefaults standardUserDefaults] colorForKey:SKFullScreenBackgroundColorKey];
     NSDictionary *fullScreenSetup = [[NSUserDefaults standardUserDefaults] dictionaryForKey:SKDefaultFullScreenPDFDisplaySettingsKey];
-    PDFPage *page = [[self pdfView] currentPage];
     
     interactionMode = SKFullScreenMode;
     
@@ -1456,9 +1455,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         [self fadeInFullScreenView:pdfSplitView inset:[SKSideWindow requiredMargin]];
     }
     
-    if ([[[self pdfView] currentPage] isEqual:page] == NO)
-        [[self pdfView] goToPage:page];
-    
     [self forceSubwindowsOnTop:YES];
     
     [pdfView setInteractionMode:SKFullScreenMode];
@@ -1475,7 +1471,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
     
     NSColor *backgroundColor = [NSColor blackColor];
     NSInteger level = [[NSUserDefaults standardUserDefaults] boolForKey:SKUseNormalLevelForPresentationKey] ? NSNormalWindowLevel : NSPopUpMenuWindowLevel;
-    PDFPage *page = [[self pdfView] currentPage];
     
     interactionMode = SKPresentationMode;
     
@@ -1507,9 +1502,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         [self fadeInFullScreenView:pdfView inset:0.0];
     }
     
-    if ([[[self pdfView] currentPage] isEqual:page] == NO)
-        [[self pdfView] goToPage:page];
-    
     [pdfView setInteractionMode:SKPresentationMode];
 }
 
@@ -1521,7 +1513,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
     NSColor *backgroundColor = [[NSUserDefaults standardUserDefaults] colorForKey:SKBackgroundColorKey];
     NSView *view;
     NSView *contentView;
-    PDFPage *page = [[self pdfView] currentPage];
     
     if (wasInteractionMode == SKFullScreenMode) {
         view = pdfSplitView;
@@ -1551,9 +1542,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         [self exitPresentationMode];
     else
         [self applyPDFSettings:savedNormalSetup];
-    
-    if ([[[self pdfView] currentPage] isEqual:page] == NO)
-        [[self pdfView] goToPage:page];
     
     [self forceSubwindowsOnTop:NO];
     

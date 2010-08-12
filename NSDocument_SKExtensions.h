@@ -71,6 +71,8 @@ typedef NSInteger SKInteractionMode;
 #pragma mark Bookmark Actions
 
 - (IBAction)addBookmark:(id)sender;
+- (IBAction)addSetupBookmark:(id)sender;
+- (IBAction)addSessionBookmark:(id)sender;
 
 #pragma mark Notes
 
@@ -109,6 +111,5 @@ typedef NSInteger SKInteractionMode;
 - (id)handleFindScriptCommand:(NSScriptCommand *)command;
 - (void)handleShowTeXScriptCommand:(NSScriptCommand *)command;
 - (void)handleConvertNotesScriptCommand:(NSScriptCommand *)command;
-- (void)handleReadNotesScriptCommand:(NSScriptCommand *)command;
 
 @end

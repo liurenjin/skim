@@ -83,47 +83,67 @@ NSString *SKDocumentErrorDomain = @"SKDocumentErrorDomain";
 
 #pragma mark Bookmark Actions
 
-enum { SKAddBookmarkTypeBookmark, SKAddBookmarkTypeSetup, SKAddBookmarkTypeSession };
 
 - (void)bookmarkSheetDidEnd:(SKBookmarkSheetController *)controller returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == NSAlertDefaultReturn) {
         SKBookmarkController *bmController = [SKBookmarkController sharedBookmarkController];
+        NSString *path = [[self fileURL] path];
         NSString *label = [controller stringValue];
-        SKBookmark *folder = [controller selectedFolder];
-        switch ((NSInteger)contextInfo) {
-            case SKAddBookmarkTypeBookmark:
-            {
-                NSString *path = [[self fileURL] path];
-                PDFPage *page = [self currentPage];
-                NSUInteger pageIndex = page ? [page pageIndex] : NSNotFound;
-                [bmController addBookmarkForPath:path pageIndex:pageIndex label:label toFolder:folder];
-                break;
-            }
-            case SKAddBookmarkTypeSetup:
-            {
-                NSDictionary *setup = [self currentDocumentSetup];
-                [bmController addBookmarkForSetup:setup label:label toFolder:folder];
-                break;
-            }
-            case SKAddBookmarkTypeSession:
-            {
-                NSArray *setups = [[NSApp orderedDocuments] valueForKey:@"currentDocumentSetup"];
-                [bmController addBookmarkForSetups:setups label:label toFolder:folder];
-                break;
-            }
-            default:
-                break;
-        }
+        PDFPage *page = [self currentPage];
+        NSUInteger pageIndex = page ? [page pageIndex] : NSNotFound;
+        [bmController addBookmarkForPath:path pageIndex:pageIndex label:label toFolder:[controller selectedFolder]];
     }
 }
 
 - (IBAction)addBookmark:(id)sender {
     SKBookmarkSheetController *bookmarkSheetController = [[[SKBookmarkSheetController alloc] init] autorelease];
+    
 	[bookmarkSheetController setStringValue:[self displayName]];
-    [bookmarkSheetController beginSheetModalForWindow:[self windowForSheet] 
-                                        modalDelegate:self  
-                                       didEndSelector:@selector(bookmarkSheetDidEnd:returnCode:contextInfo:) 
-                                          contextInfo:(void *)[sender tag]];
+    
+    [bookmarkSheetController beginSheetModalForWindow:[self windowForSheet]
+        modalDelegate:self 
+       didEndSelector:@selector(bookmarkSheetDidEnd:returnCode:contextInfo:)
+          contextInfo:NULL];
+}
+
+- (void)setupBookmarkSheetDidEnd:(SKBookmarkSheetController *)controller returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    if (returnCode == NSAlertDefaultReturn) {
+        SKBookmarkController *bmController = [SKBookmarkController sharedBookmarkController];
+        NSDictionary *setup = [self currentDocumentSetup];
+        NSString *label = [controller stringValue];
+        [bmController addBookmarkForSetup:setup label:label toFolder:[controller selectedFolder]];
+    }
+}
+
+- (IBAction)addSetupBookmark:(id)sender {
+    SKBookmarkSheetController *bookmarkSheetController = [[[SKBookmarkSheetController alloc] init] autorelease];
+    
+	[bookmarkSheetController setStringValue:[self displayName]];
+    
+    [bookmarkSheetController beginSheetModalForWindow:[self windowForSheet]
+        modalDelegate:self 
+       didEndSelector:@selector(setupBookmarkSheetDidEnd:returnCode:contextInfo:)
+          contextInfo:NULL];
+}
+
+- (void)sessionBookmarkSheetDidEnd:(SKBookmarkSheetController *)controller returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    if (returnCode == NSAlertDefaultReturn) {
+        SKBookmarkController *bmController = [SKBookmarkController sharedBookmarkController];
+        NSArray *setups = [[NSApp orderedDocuments] valueForKey:@"currentDocumentSetup"];
+        NSString *label = [controller stringValue];
+        [bmController addBookmarkForSetups:setups label:label toFolder:[controller selectedFolder]];
+    }
+}
+
+- (IBAction)addSessionBookmark:(id)sender {
+    SKBookmarkSheetController *bookmarkSheetController = [[[SKBookmarkSheetController alloc] init] autorelease];
+    
+	[bookmarkSheetController setStringValue:[self displayName]];
+    
+    [bookmarkSheetController beginSheetModalForWindow:[self windowForSheet]
+        modalDelegate:self 
+       didEndSelector:@selector(sessionBookmarkSheetDidEnd:returnCode:contextInfo:)
+          contextInfo:NULL];
 }
 
 #pragma mark PDF Document
@@ -302,11 +322,6 @@ static NSSet *richTextTypes() {
 - (void)handleConvertNotesScriptCommand:(NSScriptCommand *)command {
     [command setScriptErrorNumber:NSReceiversCantHandleCommandScriptError];
     [command setScriptErrorString:@"Notes document does not understand the 'convert notes' command."];
-}
-
-- (void)handleReadNotesScriptCommand:(NSScriptCommand *)command {
-    [command setScriptErrorNumber:NSReceiversCantHandleCommandScriptError];
-    [command setScriptErrorString:@"Notes document does not understand the 'read notes' command."];
 }
 
 @end

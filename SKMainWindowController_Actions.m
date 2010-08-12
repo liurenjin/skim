@@ -915,11 +915,6 @@ static NSArray *allMainDocumentPDFViews() {
     [self setFindPaneState:[sender tag]];
 }
 
-- (void)removeSecondaryPdfContentView {
-    [secondaryPdfContentView removeFromSuperview];
-    [pdfSplitView adjustSubviews];
-}
-
 - (IBAction)toggleSplitPDF:(id)sender {
     if ([pdfSplitView isAnimating])
         return;
@@ -928,7 +923,7 @@ static NSArray *allMainDocumentPDFViews() {
         
         NSTimeInterval delay = [[NSUserDefaults standardUserDefaults] boolForKey:SKDisableAnimationsKey] ? 0.0 : [[NSAnimationContext currentContext] duration];
         [pdfSplitView setPosition:[pdfSplitView maxPossiblePositionOfDividerAtIndex:0] ofDividerAtIndex:0 animate:YES];
-        [self performSelector:@selector(removeSecondaryPdfContentView) withObject:nil afterDelay:delay];
+        [secondaryPdfContentView performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:delay];
         
     } else {
         
@@ -938,8 +933,8 @@ static NSArray *allMainDocumentPDFViews() {
             lastSplitPDFHeight = floor(0.3 * NSHeight(frame));
         
         CGFloat position = NSHeight(frame) - lastSplitPDFHeight - [pdfSplitView dividerThickness];
-        NSPoint point = NSZeroPoint;
-        PDFPage *page = nil;
+        NSPoint point = NSMakePoint(NSMinX(frame), NSMaxY(frame) - position - [pdfSplitView dividerThickness]);
+        PDFPage *page = [pdfView pageForPoint:point nearest:YES];
         
         if (secondaryPdfView == nil) {
             secondaryPdfContentView = [[NSView alloc] init];
@@ -957,8 +952,6 @@ static NSArray *allMainDocumentPDFViews() {
             [secondaryPdfView setGreekingThreshold:[[NSUserDefaults standardUserDefaults] floatForKey:SKGreekingThresholdKey]];
             [secondaryPdfView setSynchronizeZoom:YES];
             [secondaryPdfView setDocument:[pdfView document]];
-            point = NSMakePoint(NSMinX(frame), NSMaxY(frame) - position - [pdfSplitView dividerThickness]);
-            page = [pdfView pageForPoint:point nearest:YES];
         } else {
             [secondaryPdfContentView setHidden:YES];
             [pdfSplitView addSubview:secondaryPdfContentView];
@@ -966,12 +959,10 @@ static NSArray *allMainDocumentPDFViews() {
         
         [pdfSplitView setPosition:position ofDividerAtIndex:0 animate:YES];
         
-        if (page) {
-            point = [secondaryPdfView convertPoint:[secondaryPdfView convertPoint:[pdfView convertPoint:point toPage:page] fromPage:page] toView:[secondaryPdfView documentView]];
-            [secondaryPdfView goToPage:page];
-            [[secondaryPdfView documentView] scrollPoint:point];
-            [secondaryPdfView layoutDocumentView];
-        }
+        point = [secondaryPdfView convertPoint:[secondaryPdfView convertPoint:[pdfView convertPoint:point toPage:page] fromPage:page] toView:[secondaryPdfView documentView]];
+        [secondaryPdfView goToPage:page];
+        [[secondaryPdfView documentView] scrollPoint:point];
+        [secondaryPdfView layoutDocumentView];
     }
     
     [[self window] recalculateKeyViewLoop];

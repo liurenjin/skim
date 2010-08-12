@@ -855,30 +855,27 @@ static BOOL isIgnorablePOSIXError(NSError *error) {
     [[self pdfView] printWithInfo:[self printInfo] autoRotate:autoRotate];
 }
 
-- (void)readNotesFromURL:(NSURL *)notesURL replace:(BOOL)replace {
-    NSString *extension = [[notesURL path] pathExtension];
-    NSArray *array = nil;
-    
-    if ([extension caseInsensitiveCompare:@"skim"] == NSOrderedSame) {
-        array = [NSKeyedUnarchiver unarchiveObjectWithFile:[notesURL path]];
-    } else {
-        NSData *fdfData = [NSData dataWithContentsOfURL:notesURL];
-        if (fdfData)
-            array = [SKFDFParser noteDictionariesFromFDFData:fdfData];
-    }
-    
-    if (array) {
-        [[self mainWindowController] addAnnotationsFromDictionaries:array replace:replace];
-        [[self undoManager] setActionName:replace ? NSLocalizedString(@"Replace Notes", @"Undo action name") : NSLocalizedString(@"Add Notes", @"Undo action name")];
-    } else
-        NSBeep();
-}
-
-- (void)openPanelDidEnd:(NSOpenPanel *)oPanel returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+- (void)openPanelDidEnd:(NSOpenPanel *)oPanel returnCode:(NSInteger)returnCode  contextInfo:(void  *)contextInfo{
     if (returnCode == NSOKButton) {
         NSURL *notesURL = [[oPanel URLs] objectAtIndex:0];
-        BOOL replace = ([[oPanel accessoryView] isEqual:readNotesAccessoryView] && [replaceNotesCheckButton state] == NSOnState);
-        [self readNotesFromURL:notesURL replace:replace];
+        NSString *extension = [[notesURL path] pathExtension];
+        NSArray *array = nil;
+        
+        if ([extension caseInsensitiveCompare:@"skim"] == NSOrderedSame) {
+            array = [NSKeyedUnarchiver unarchiveObjectWithFile:[notesURL path]];
+        } else {
+            NSData *fdfData = [NSData dataWithContentsOfURL:notesURL];
+            if (fdfData)
+                array = [SKFDFParser noteDictionariesFromFDFData:fdfData];
+        }
+        
+        if (array) {
+            BOOL replace = ([[oPanel accessoryView] isEqual:readNotesAccessoryView] && [replaceNotesCheckButton state] == NSOnState);
+            [[self mainWindowController] addAnnotationsFromDictionaries:array replace:replace];
+            [[self undoManager] setActionName:replace ? NSLocalizedString(@"Replace Notes", @"Undo action name") : NSLocalizedString(@"Add Notes", @"Undo action name")];
+        } else
+            NSBeep();
+        
     }
 }
 
@@ -1062,70 +1059,59 @@ static BOOL isIgnorablePOSIXError(NSError *error) {
 }
 
 - (BOOL)emailAttachmentFile:(NSString *)fileName {
-    NSString *scriptFormat = nil;
+    NSMutableString *scriptString = nil;
+    
     NSString *mailAppName = nil;
     CFURLRef mailAppURL = NULL;
-    
-    if (noErr == LSGetApplicationForURL((CFURLRef)[NSURL URLWithString:@"mailto:"], kLSRolesAll, NULL, &mailAppURL))
+    OSStatus status = LSGetApplicationForURL((CFURLRef)[NSURL URLWithString:@"mailto:"], kLSRolesAll, NULL, &mailAppURL);
+    if (status == noErr)
         mailAppName = [[[(NSURL *)mailAppURL path] lastPathComponent] stringByDeletingPathExtension];
-    mailAppName = @"PostboxExpress";
+    
+    NSString *subject = [self displayName];
+    
     if ([mailAppName rangeOfString:@"Entourage" options:NSCaseInsensitiveSearch].length) {
-        scriptFormat = @"tell application \"Microsoft Entourage\"\n"
-                       @"activate\n"
-                       @"set m to make new draft window with properties {subject:\"%@\", visible:true}\n"
-                       @"tell m\n"
-                       @"make new attachment with properties {file:POSIX file \"%@\"}\n"
-                       @"end tell\n"
-                       @"end tell\n";
+        scriptString = [NSMutableString stringWithString:@"tell application \"Microsoft Entourage\"\n"];
+        [scriptString appendString:@"activate\n"];
+        [scriptString appendFormat:@"set m to make new draft window with properties {subject:\"%@\"}\n", subject];
+        [scriptString appendString:@"tell m\n"];
+        //[scriptString appendFormat:@"set content to \"%@\"\n", body];
+        [scriptString appendFormat:@"make new attachment with properties {file:POSIX file \"%@\"}\n", fileName];
+        [scriptString appendString:@"end tell\n"];
+        [scriptString appendString:@"end tell\n"];
     } else if ([mailAppName rangeOfString:@"Mailsmith" options:NSCaseInsensitiveSearch].length) {
-        scriptFormat = @"tell application \"Mailsmith\"\n"
-                       @"activate\n"
-                       @"set m to make new message window with properties {subject:\"%@\", visible:true}\n"
-                       @"tell m\n"
-                       @"make new enclosure with properties {file:POSIX file \"%@\"}\n"
-                       @"end tell\n"
-                       @"end tell\n";
-    } else if ([mailAppName rangeOfString:@"Mailplane" options:NSCaseInsensitiveSearch].length) {
-        scriptFormat = @"tell application \"Mailplane\"\n"
-                       @"activate\n"
-                       @"set m to make new outgoing message with properties {subject:\"%@\", visible:true}\n"
-                       @"tell m\n"
-                       @"make new mail attachment with properties {path:\"%@\"}\n"
-                       @"end tell\n"
-                       @"end tell\n";
-    } else if ([mailAppName rangeOfString:@"PostboxExpress" options:NSCaseInsensitiveSearch].length) {
-        scriptFormat = @"tell application \"PostboxExpress\"\n"
-                       @"activate\n"
-                       @"send message subject \"%@\" attachment \"%@\"\n"
-                       @"end tell\n";
-    } else if ([mailAppName rangeOfString:@"Postbox" options:NSCaseInsensitiveSearch].length) {
-        scriptFormat = @"tell application \"Postbox\"\n"
-                       @"activate\n"
-                       @"send message subject \"%@\" attachment \"%@\"\n"
-                       @"end tell\n";
+        scriptString = [NSMutableString stringWithString:@"tell application \"Mailsmith\"\n"];
+        [scriptString appendString:@"activate\n"];
+        [scriptString appendFormat:@"set m to make new message window with properties {subject:\"%@\"}\n", subject];
+        [scriptString appendString:@"tell m\n"];
+        //[scriptString appendFormat:@"set contents to \"%@\"\n", body];
+        [scriptString appendFormat:@"make new enclosure with properties {file:POSIX file \"%@\"}\n", fileName];
+        [scriptString appendString:@"end tell\n"];
+        [scriptString appendString:@"end tell\n"];
     } else {
-        scriptFormat = @"tell application \"Mail\"\n"
-                       @"activate\n"
-                       @"set m to make new outgoing message with properties {subject:\"%@\", visible:true}\n"
-                       @"tell content of m\n"
-                       @"make new attachment at after last character with properties {file name:\"%@\"}\n"
-                       @"end tell\n"
-                       @"end tell\n";
+        scriptString = [NSMutableString stringWithString:@"tell application \"Mail\"\n"];
+        [scriptString appendString:@"activate\n"];
+        [scriptString appendFormat:@"set m to make new outgoing message with properties {subject:\"%@\", visible:true}\n", subject];
+        //[scriptString appendFormat:@"set content of m to \"%@\"\n", body];
+        [scriptString appendString:@"tell content of m\n"];
+        [scriptString appendFormat:@"make new attachment at after last character with properties {file name:\"%@\"}\n", fileName];
+        [scriptString appendString:@"end tell\n"];
+        [scriptString appendString:@"end tell\n"];
     }
     
-    
-    NSString *scriptString = [NSString stringWithFormat:scriptFormat, [self displayName], fileName];
-    NSAppleScript *script = [[[NSAppleScript alloc] initWithSource:scriptString] autorelease];
-    NSDictionary *errorDict = nil;
-    if ([script compileAndReturnError:&errorDict] == NO) {
-        NSLog(@"Error compiling mail to script: %@", errorDict);
-        return NO;
+    if (scriptString) {
+        NSAppleScript *script = [[[NSAppleScript alloc] initWithSource:scriptString] autorelease];
+        NSDictionary *errorDict = nil;
+        if ([script compileAndReturnError:&errorDict] == NO) {
+            NSLog(@"Error compiling mail to script: %@", errorDict);
+            return NO;
+        }
+        if ([script executeAndReturnError:&errorDict] == NO) {
+            NSLog(@"Error running mail to script: %@", errorDict);
+            return NO;
+        }
+        return YES;
     }
-    if ([script executeAndReturnError:&errorDict] == NO) {
-        NSLog(@"Error running mail to script: %@", errorDict);
-        return NO;
-    }
-    return YES;
+    return NO;
 }
 
 - (IBAction)emailArchive:(id)sender {
@@ -2138,23 +2124,6 @@ inline NSRange SKMakeRangeFromEnd(NSUInteger end, NSUInteger length) {
 - (void)handleConvertNotesScriptCommand:(NSScriptCommand *)command {
     if (SKIsPDFDocumentType([self fileType]) || SKIsPDFBundleDocumentType([self fileType]))
         [self convertNotesSheetDidEnd:nil returnCode:NSAlertDefaultReturn contextInfo:NULL];
-    else
-        [command setScriptErrorNumber:NSArgumentsWrongScriptError];
-}
-
-- (void)handleReadNotesScriptCommand:(NSScriptCommand *)command {
-    NSDictionary *args = [command evaluatedArguments];
-    NSURL *notesURL = [args objectForKey:@"File"];
-    if (notesURL == nil) {
-        [command setScriptErrorNumber:NSRequiredArgumentsMissingScriptError];
-    } else {
-        NSNumber *replaceNumber = [args objectForKey:@"Replace"];
-        NSString *fileType = [[NSDocumentController sharedDocumentController] typeForContentsOfURL:notesURL error:NULL];
-        if (SKIsNotesDocumentType(fileType) || SKIsNotesFDFDocumentType(fileType))
-            [self readNotesFromURL:notesURL replace:(replaceNumber ? [replaceNumber boolValue] : YES)];
-        else
-            [command setScriptErrorNumber:NSArgumentsWrongScriptError];
-    }
 }
 
 @end

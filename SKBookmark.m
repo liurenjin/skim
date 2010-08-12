@@ -170,6 +170,11 @@ static Class SKBookmarkClass = Nil;
     return nil;
 }
 
+- (id)copyWithZone:(NSZone *)aZone {
+    [self doesNotRecognizeSelector:_cmd];
+    return nil;
+}
+
 - (void)dealloc {
     parent = nil;
     [super dealloc];
@@ -189,6 +194,8 @@ static Class SKBookmarkClass = Nil;
 - (void)setPageIndex:(NSUInteger)newPageIndex {}
 - (NSNumber *)pageNumber { return nil; }
 - (void)setPageNumber:(NSNumber *)newPageNumber {}
+
+- (NSArray *)session { return nil; }
 
 - (NSArray *)children { return nil; }
 - (NSUInteger)countOfChildren { return 0; }
@@ -328,6 +335,10 @@ static Class SKBookmarkClass = Nil;
     return self;
 }
 
+- (id)copyWithZone:(NSZone *)aZone {
+    return [[[self class] allocWithZone:aZone] initWithAlias:alias pageIndex:pageIndex label:label];
+}
+
 - (void)dealloc {
     SKDESTROY(alias);
     SKDESTROY(aliasData);
@@ -407,6 +418,10 @@ static Class SKBookmarkClass = Nil;
         [children makeObjectsPerformSelector:@selector(setParent:) withObject:self];
     }
     return self;
+}
+
+- (id)copyWithZone:(NSZone *)aZone {
+    return [[[self class] allocWithZone:aZone] initFolderWithChildren:[[[NSArray alloc] initWithArray:children copyItems:YES] autorelease] label:label];
 }
 
 - (void)dealloc {
@@ -541,6 +556,10 @@ static Class SKBookmarkClass = Nil;
 #pragma mark -
 
 @implementation SKSeparatorBookmark
+
+- (id)copyWithZone:(NSZone *)aZone {
+    return [[[self class] allocWithZone:aZone] init];
+}
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"<%@: separator>", [self class]];
