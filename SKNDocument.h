@@ -1,5 +1,5 @@
 //
-//  main.m
+//  SKNDocument.h
 //  SkimNotes
 //
 //  Created by Christiaan Hofman on 7/16/08.
@@ -36,9 +36,18 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+
 #import <Cocoa/Cocoa.h>
 
-int main(int argc, char *argv[])
-{
-    return NSApplicationMain(argc, (const char **) argv);
+// Uncomment one of these three #defines
+
+#define FrameworkSample
+//#define AgentSample
+//#define ToolSample
+
+@interface SKNDocument : NSDocument {
+    NSMutableArray *notes;
 }
+- (NSArray *)notes;
+- (void)setNotes:(NSArray *)newNotes;
+@end

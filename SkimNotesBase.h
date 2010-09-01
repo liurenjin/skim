@@ -1,9 +1,9 @@
-//
-//  main.m
-//  SkimNotes
-//
-//  Created by Christiaan Hofman on 7/16/08.
 /*
+ *  SkimNotesBase.h
+ *  SkimNotes
+ *
+ *  Created by Christiaan Hofman on 7/15/08.
+ *
  This software is Copyright (c) 2008-2009
  Christiaan Hofman. All rights reserved.
 
@@ -36,9 +36,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Cocoa/Cocoa.h>
+#import <SkimNotesBase/SKNExtendedAttributeManager.h>
 
-int main(int argc, char *argv[])
-{
-    return NSApplicationMain(argc, (const char **) argv);
-}
+#import <SkimNotesBase/NSFileManager_SKNExtensions.h>

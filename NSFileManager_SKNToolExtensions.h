@@ -1,8 +1,8 @@
 //
-//  main.m
+//  NSFileManager_SKNToolExtensions.h
 //  SkimNotes
 //
-//  Created by Christiaan Hofman on 7/16/08.
+//  Created by Christiaan Hofman on 7/17/08.
 /*
  This software is Copyright (c) 2008-2009
  Christiaan Hofman. All rights reserved.
@@ -36,9 +36,17 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
-int main(int argc, char *argv[])
-{
-    return NSApplicationMain(argc, (const char **) argv);
-}
+
+@interface NSFileManager (SKNToolExtensions)
+
+- (NSData *)SkimNotesAtPath:(NSString *)path error:(NSError **)outError;
+- (NSString *)SkimTextNotesAtPath:(NSString *)path error:(NSError **)outError;
+- (NSData *)SkimRTFNotesAtPath:(NSString *)path error:(NSError **)outError;
+
+- (BOOL)writeSkimNotes:(NSData *)notesData textNotes:(NSString *)textNotes RTFNotes:(NSData *)rtfNotesData atPath:(NSString *)path error:(NSError **)outError;
+
+- (BOOL)removeSkimNotesAtPath:(NSString *)path error:(NSError **)outError;
+
+@end
