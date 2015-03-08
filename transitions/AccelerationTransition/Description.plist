@@ -12,7 +12,7 @@
 				<string>filterDescription</string>
 				<key>CIAttributeFilterCategories</key>
 				<array>
-					<string>CICategoryDistortionEffect</string>
+					<string>CICategoryTransition</string>
 					<string>CICategoryVideo</string>
 					<string>CICategoryStillImage</string>
 				</array>
