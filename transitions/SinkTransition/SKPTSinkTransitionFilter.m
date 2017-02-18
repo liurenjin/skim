@@ -64,7 +64,7 @@ static CIKernel *_SKPTSinkTransitionFilterKernel = nil;
     NSArray *arguments = [NSArray arrayWithObjects:src, inputCenter, [NSNumber numberWithFloat:1.0 - fabs(2.0 * t - 1.0)], nil];
     NSDictionary *options  = [NSDictionary dictionaryWithObjectsAndKeys:[src definition], kCIApplyOptionDefinition, src, kCIApplyOptionUserInfo, nil];
     
-    [_SKPTSinkTransitionFilterKernel setROISelector:@selector(regionOf:forRect:userInfo:)];
+    [_SKPTSinkTransitionFilterKernel setROISelector:@selector(regionOf:destRect:userInfo:)];
     
     return [self apply:_SKPTSinkTransitionFilterKernel arguments:arguments options:options];
 }
