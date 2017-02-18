@@ -81,7 +81,7 @@ static CIKernel *_SKPTStripsTransitionFilterKernel = nil;
     NSArray *userInfo = [NSArray arrayWithObjects:src, offset, nil];
     NSDictionary *options  = [NSDictionary dictionaryWithObjectsAndKeys:extent, kCIApplyOptionDefinition, extent, kCIApplyOptionExtent, userInfo, kCIApplyOptionUserInfo, nil];
     
-    [_SKPTStripsTransitionFilterKernel setROISelector:@selector(regionOf:forRect:userInfo:)];
+    [_SKPTStripsTransitionFilterKernel setROISelector:@selector(regionOf:destRect:userInfo:)];
     
     return [self apply:_SKPTStripsTransitionFilterKernel arguments:arguments options:options];
 }

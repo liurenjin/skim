@@ -97,7 +97,7 @@ static CIKernel *_SKPTMeltdownTransitionFilterKernel = nil;
     NSArray *userInfo = [NSArray arrayWithObjects:src, mask, amount, radius, nil];
     NSDictionary *options  = [NSDictionary dictionaryWithObjectsAndKeys:extent, kCIApplyOptionDefinition, extent, kCIApplyOptionExtent, userInfo, kCIApplyOptionUserInfo, nil];
     
-    [_SKPTMeltdownTransitionFilterKernel setROISelector:@selector(regionOf:forRect:userInfo:)];
+    [_SKPTMeltdownTransitionFilterKernel setROISelector:@selector(regionOf:destRect:userInfo:)];
     
     return [self apply:_SKPTMeltdownTransitionFilterKernel arguments:arguments options:options];
 }

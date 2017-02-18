@@ -99,7 +99,7 @@ static CIKernel *_SKPTHoleTransitionFilterKernel = nil;
     NSArray *arguments = [NSArray arrayWithObjects:src, trgt, inputCenter, [NSNumber numberWithFloat:radius], nil];
     NSDictionary *options  = [NSDictionary dictionaryWithObjectsAndKeys:extent, kCIApplyOptionDefinition, extent, kCIApplyOptionExtent, inputCenter, kCIApplyOptionUserInfo, nil];
     
-    [_SKPTHoleTransitionFilterKernel setROISelector:@selector(regionOf:forRect:userInfo:)];
+    [_SKPTHoleTransitionFilterKernel setROISelector:@selector(regionOf:destRect:userInfo:)];
     
     return [self apply:_SKPTHoleTransitionFilterKernel arguments:arguments options:options];
 }
