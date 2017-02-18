@@ -81,7 +81,7 @@ static CIKernel *_SKPTCoverTransitionFilterKernel = nil;
     NSArray *userInfo = [NSArray arrayWithObjects:src, offset, nil];
     NSDictionary *options  = [NSDictionary dictionaryWithObjectsAndKeys:extent, kCIApplyOptionDefinition, extent, kCIApplyOptionExtent, userInfo, kCIApplyOptionUserInfo, nil];
     
-    [_SKPTCoverTransitionFilterKernel setROISelector:@selector(regionOf:forRect:userInfo:)];
+    [_SKPTCoverTransitionFilterKernel setROISelector:@selector(regionOf:destRect:userInfo:)];
     
     return [self apply:_SKPTCoverTransitionFilterKernel arguments:arguments options:options];
 }

@@ -10,7 +10,7 @@ kernel vec4 coverTransition(sampler src, sampler trgt, vec4 extent, float angle,
     t1.y += d1 * sin(angle);
     p1 = sample(src, samplerTransform(src, destCoord()));
     p2 = sample(trgt, samplerTransform(trgt, t1));
-    p2 = t1.x < extent.x ? vec4(0.0) : (t1.x > extent.x + extent.z ? vec4(0.0) : p2);
+    p2 = t1.x < extent.x ? vec4(0.0) : (t1.x > extent.x + extent.z ? vec4(0.0) : (t1.y < extent.y ? vec4(0.0) : (t1.y > extent.y + extent.w ? vec4(0.0) : p2)));
 
     return p2 + (1.0 - p2.a) * p1;
 }
